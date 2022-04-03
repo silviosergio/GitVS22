@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GitVS22
 {
@@ -7,13 +9,20 @@ namespace GitVS22
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Hanoi(3, "A", "B", "C");
+            int n = 5;
+            Hanoi(3,
+                new Rod("A", new Stack<int>(Enumerable.Range(1, n).Reverse())),
+                new Rod("B", new Stack<int>()),
+                new Rod("C", new Stack<int>())
+                );
         }
-        static void Hanoi(int n, string from, string to, string via)
+        static void Hanoi(int n, Rod from, Rod to, Rod via)
         {
             if (n == 1)
             {
-                Console.WriteLine($"spost un disco da {from} a {to}.");
+                int d = from.Pop();
+                to.Push(d);
+                Console.WriteLine($"Sposta il disco {d} da {from.Label} a {to.Label}.");
             }
             else
             {
